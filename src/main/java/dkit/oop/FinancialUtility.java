@@ -32,4 +32,10 @@ public class FinancialUtility
     // two double amounts as arguments, and returns the straight average.
     // Remember that the method MUST be static.
     // Test it out by calling it from the main App.
+
+    public static double average (double d1, double d2)
+    {
+        return(d1+d2)/2;
+
+    }
 }

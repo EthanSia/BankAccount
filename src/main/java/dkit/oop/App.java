@@ -51,38 +51,97 @@ public class App {
         accountsList.add( new BankAccount(500.55) );
 
         // Iterate over list and print all account details (using toString() )
-        for( BankAccount account : accountsList) {
+        for( BankAccount account : accountsList)
+        {
             System.out.println(account);
         }
 
         //TODO
         // Calculate the sum of the balances in the accounts
         // by looping over the list.
-
+        double sum = 0;
+        for( BankAccount account : accountsList)
+        {
+            sum=sum+account.getBalance();
+        }
+        System.out.println("Sum of all account's balance: "+sum);
         //TODO
         // Add a special Covid-19 payment of 200.00 to all accounts
         // by looping over the list.
+        System.out.println("Add covid 19 payament");
+        for( BankAccount account : accountsList)
+        {
+            account.deposit(200.00);
+            System.out.println(account);
+        }
+
 
         //TODO
         // Add interest of 6.5% to all accounts in the list by
         // looping over the list and calling addInterest()
+        System.out.println("Add interest of 6.5%");
+        for(BankAccount account : accountsList)
+        {
+            account.addInterest(6.5);
+            System.out.println(account);
+        }
 
         //TODO
         // Write a method to return the average account balance
         // double calculateAverageAccountBalance( arraylist )
+        System.out.println("Average account balance");
+        BankAccount account = new BankAccount();
+        double average = account.calculateAverageAccountBalance(accountsList);
+        System.out.println(average);
 
         //TODO
         // Write a method to accept the list of accounts and
         // return a reference to the account with the largest balance.
         // Print the returned BankAccount object details.
+        System.out.println();
+        BankAccount largest = findAccountWithLargestBalance(accountsList);
+        if(largest != null)
+        {
+            System.out.println("Largest is: "+largest.toString());
+        }
 
         //TODO
         // What are the implications of the following code.
         // Draw a memory diagram to represent the situation.
+
+
         BankAccount williamsAccount = harrysAccount;
         System.out.format("William's account balance = %.2f \n", williamsAccount.getBalance());
 
         // Explain what will happen below.
-        williamsAccount.withdraw(100);
+        williamsAccount.withdraw(100);//when withdraw 100 in williamsAccount, also withdraw 100 in harrysAccount// cuz they use the same reference
+
+        //TODO
+        // Get the direct average method in class FinancialUtility.
+        System.out.println("Direct average "+FinancialUtility.average(4,6));
+    }
+
+    public  void printArrayList(ArrayList<BankAccount>arrList)
+    {
+        for(BankAccount account : arrList)
+        {
+            System.out.println(account);
+        }
+    }
+
+    public BankAccount findAccountWithLargestBalance(ArrayList<BankAccount>arrList)
+    {
+        double largestBalance = 0.0;
+        BankAccount largest = null;
+
+        for(BankAccount account : arrList)
+        {
+            if(account.getBalance() > largestBalance)
+            {
+                largestBalance = account.getBalance();
+                largest =account;
+            }
+        }
+        return largest;
     }
 }

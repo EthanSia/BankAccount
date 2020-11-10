@@ -1,5 +1,7 @@
 package dkit.oop;
 
+import java.util.ArrayList;
+
 /**
  * A BankAccount has an account number and
  * a balance that can be changed by deposits and withdrawals.
@@ -8,7 +10,8 @@ package dkit.oop;
  * maintain a sequence account number to be used as the account number
  * for initializing the next BankAccount object created.
  */
-public class BankAccount {
+public class BankAccount
+{
     private double balance;
     private int accountNumber = lastAssignedNumber;
 
@@ -20,46 +23,76 @@ public class BankAccount {
     public static final double OVERDRAFT_FEE = 20.00;  // final => can't be changed after initialization
 
     // constructors
-    public BankAccount() {
+    public BankAccount()
+    {
         accountNumber = lastAssignedNumber; // assign value from static variable to instance
         lastAssignedNumber++;
         balance = 0.00;
     }
 
-    public BankAccount(double initialBalance) {
+    public BankAccount(double initialBalance)
+    {
         accountNumber = lastAssignedNumber;
         lastAssignedNumber++;
         balance = initialBalance;
     }
 
-    public void deposit(double amount) {
+    public void deposit(double amount)
+    {
         balance = balance + amount;
     }
 
-    public void withdraw(double amount) {
-        if (amount > balance) {
+    public void withdraw(double amount)
+    {
+        if (amount > balance)
+        {
             balance = balance - amount;
             balance = balance - OVERDRAFT_FEE; // deduct fee
-        } else {
+        }
+        else
+        {
             balance = balance - amount;
         }
     }
 
     // adds interest (at year end?) to the current balance based on a rate
-    public void addInterest(double rate) {
+    public void addInterest(double rate)
+    {
         balance = balance + FinancialUtility.percentOf(rate, balance);
     }
 
-    public double getBalance() {
+    public double getBalance()
+    {
         return balance;
     }
 
-    public int getAccountNumber() {
+    public int getAccountNumber()
+    {
         return accountNumber;
     }
 
+    public double calculateAverageAccountBalance(  ArrayList<BankAccount> accountsList )
+    {
+        double sum = 0;
+
+        for( BankAccount account : accountsList)
+        {
+
+            sum = sum + account.getBalance();
+        }
+
+        double average = sum/accountsList.size();
+
+        return average;
+    }
+
+
+
+
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "BankAccount{" +
                 "balance=" + balance +
                 ", accountNumber=" + accountNumber +
